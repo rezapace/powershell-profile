@@ -75,6 +75,15 @@ Set-PSReadLineOption -EditMode Windows
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r' # scoop install fzf (install scoop dulu)
 Set-PsFzfOption -TabExpansion
 
+function setupps {
+    Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+    Install-Module -Name posh-git -Scope CurrentUser -Force
+    Install-Module -Name PowerShellGet -Scope CurrentUser -Force
+    Install-Module -Name z -Scope CurrentUser -Force
+    install-Module -Name PSReadLine CurrentUser -Force
+    scoop install fzf
+}
+
 
 #  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗     ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
 #  ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝    ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║

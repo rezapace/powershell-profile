@@ -46,8 +46,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 # Instalasi modul-modul yang dibutuhkan
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 Install-Module -Name posh-git -Scope CurrentUser -Force
-Install-Module -Name PsFzf -Scope CurrentUser -Force
 Install-Module -Name PowerShellGet -Scope CurrentUser -Force
 Install-Module -Name z -Scope CurrentUser -Force
-
-# choco install gsudo -y
+install-Module -Name PSReadLine CurrentUser -Force
+scoop install fzf -y
+choco install gsudo -y
