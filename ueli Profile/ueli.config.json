@@ -1,17 +1,17 @@
 {
   "appearanceOptions": {
     "allowTransparentBackground": false,
-    "fontFamily": "\"Segoe UI\", Roboto, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+    "fontFamily": "\"Segoe UI Bold\", Roboto, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
     "maxSearchResultsPerPage": "4",
     "searchResultHeight": "60",
     "showDescriptionOnAllSearchResults": true,
     "showSearchIcon": false,
     "showSearchResultNumbers": false,
     "smoothScrolling": false,
-    "userInputHeight": "65",
-    "windowWidth": "600",
+    "userInputHeight": "75",
+    "windowWidth": "570",
     "userInputBorderRadius": "0px",
-    "userInputFontSize": "40px",
+    "userInputFontSize": "35px",
     "userInputFontWeight": "200",
     "userInputBottomMargin": 0,
     "searchResultNameFontSize": "25px",
@@ -50,17 +50,17 @@
     "showColorPreview": false
   },
   "colorThemeOptions": {
-    "name": "Atom One Dark",
-    "userInputBackgroundColor": "#0c0c0c",
-    "userInputTextColor": "#78b8a6",
-    "searchResultsBackgroundColor": "#0c0c0c",
-    "searchResultsItemActiveBackgroundColor": "#78b8a6",
-    "searchResultsItemActiveDescriptionColor": "#fff",
-    "searchResultsItemActiveTextColor": "#fff",
-    "searchResultsItemDescriptionTextColor": "#ccc",
-    "searchResultsItemNameTextcolor": "#aab2c0",
-    "scrollbarBackgroundColor": "#1f2328",
-    "scrollbarForegroundColor": "#3d444f"
+    "name": "Dracula - Cyan Highlights",
+    "userInputBackgroundColor": "#000000FF",
+    "userInputTextColor": "#66f859",
+    "searchResultsBackgroundColor": "#000000FF",
+    "searchResultsItemActiveBackgroundColor": "#2b2740",
+    "searchResultsItemActiveDescriptionColor": "#f86eaa",
+    "searchResultsItemActiveTextColor": "#66f859",
+    "searchResultsItemDescriptionTextColor": "#6272A4",
+    "searchResultsItemNameTextcolor": "#F8F8F2",
+    "scrollbarBackgroundColor": "#000000FF",
+    "scrollbarForegroundColor": "#000000FF"
   },
   "commandlineOptions": {
     "isEnabled": false,
@@ -134,8 +134,8 @@
   },
   "searchEngineOptions": {
     "blackList": [],
-    "fuzzyness": 0.5,
-    "maxSearchResults": "9"
+    "fuzzyness": "0.36",
+    "maxSearchResults": "5"
   },
   "shortcutOptions": {
     "isEnabled": false,
