@@ -35,30 +35,9 @@ $Host.UI.RawUI.WindowTitle = "PowerShell {0}" -f $PSVersionTable.PSVersion.ToStr
 if ($isAdmin) {
 $Host.UI.RawUI.WindowTitle += " [ADMIN]"}
 
-function dirs {
-if ($args.Count -gt 0) {
-        Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-} else {
-Get-ChildItem -Recurse | Foreach-Object FullName
-}}
-
-function admin {
-if ($args.Count -gt 0) {
-        $argList = "& '" + $args + "'"
-        Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
-    } else {
-        Start-Process "$psHome\powershell.exe" -Verb runAs
-}}
-
 Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
-
-function Edit-Profile {
-if ($host.Name -match "ise") {
-        $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
-} else {
-notepad $profile.CurrentUserAllHosts
-}}
+set-alias -name j -value z
 
 Remove-Variable identity
 Remove-Variable principal
@@ -87,14 +66,14 @@ $EDITOR='notepad++'
 } elseif (Test-CommandExists sublime_text) {
 $EDITOR='sublime_text'
 }
-
 Set-Alias -Name vim -Value $EDITOR
+
+# psreadline & fzf extension tambahan
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
-
-
-
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+Set-PsFzfOption -TabExpansion
 
 
 #  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗     ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
@@ -104,10 +83,7 @@ Set-PSReadLineOption -EditMode Windows
 #  ███████║╚██████╗██║  ██║██║██║        ██║       ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
 #  ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝        ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝   
 
-
-
-
-
+# script singkat
 function ll { Get-ChildItem -Path $pwd -File }
 function g { Set-Location $HOME\Documents\Github }
 function desktop { Set-Location $HOME\Desktop }
@@ -119,50 +95,58 @@ function c {Clear}
 function e {explorer .}
 function v {code .}
 function rprofile {& $profile}
-function profile {code 'C:\Users\R\Documents\WindowsPowerShell'}
+function profile {code $HOME\Documents\\WindowsPowerShell}
 
-function com {
+# list directory
+function dirs {
+if ($args.Count -gt 0) {
+        Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
+} else {
+Get-ChildItem -Recurse | Foreach-Object FullName
+}}
+
+# ganti ke admin
+function admin {
+if ($args.Count -gt 0) {
+        $argList = "& '" + $args + "'"
+        Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
+    } else {
+        Start-Process "$psHome\powershell.exe" -Verb runAs
+}}
+
+# commit file
+function gcom {
 git add .
 git commit -m "$args"
 }
 
-function up {
+# push file
+function gup {
     git add .
     git commit -m "$args"
     git push
 }
 
+# mengetahui ip publik
 function Get-PubIP {
 (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
 
+# mengetahui uptime device
 function uptime {
 Get-WmiObject win32*operatingsystem | Select-Object csname, @{
 LABEL = 'LastBootUpTime';
 EXPRESSION = { $*.ConverttoDateTime($\_.lastbootuptime) }
 }}
 
+# mencari file
 function find-file($name) {
 Get-ChildItem -recurse -filter "_${name}_" -ErrorAction SilentlyContinue | ForEach-Object {
 $place_path = $_.directory
         Write-Output "${place*path}\${*}"
 }}
 
-function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
-}
-
-function zip {
-    param(
-        [Parameter(Mandatory=$true)]
-[string]$name
-    )
-    $path = (Get-Location).Path
-    Compress-Archive -Path "$path\*" -DestinationPath "$path\..\$name.zip"
-}
-
+# mencari text
 function grep($regex, $dir) {
     if ( $dir ) {
         Get-ChildItem $dir | select-string $regex
@@ -171,55 +155,37 @@ function grep($regex, $dir) {
     $input | select-string $regex
 }
 
-function touch($file) {
-"" | Out-File $file -Encoding ASCII
-}
-
+# mengetahu ukuran file
 function df {
     get-volume
 }
 
+# menganti file
 function sed($file, $find, $replace) {
     (Get-Content $file).replace("$find", $replace) | Set-Content $file
 }
 
+# menentukan definisi
 function which($name) {
 Get-Command $name | Select-Object -ExpandProperty Definition
 }
 
+# export env
 function export($name, $value) {
     set-item -force -path "env:$name" -value $value;
 }
 
+# menghentikan proses
 function pkill($name) {
 Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
 }
 
+# menampilkan proses
 function pgrep($name) {
 Get-Process $name
 }
 
-function konek {
-param(
-[Parameter(Mandatory=$true)]
-[string]$ip,
-        [int]$listenport = 8000,
-[int]$connectport = 8000
-    )
-    $listenaddress = $ip.Trim()
-    $connectaddress = $($(wsl hostname -I).Trim())
-$cmd = "netsh interface portproxy add v4tov4 listenport=$listenport listenaddress=$listenaddress connectport=$connectport connectaddress=$connectaddress"
-Invoke-Expression $cmd
-}
-
-function stop {
-netsh interface portproxy reset
-}
-
-function cek {
-netsh interface portproxy show v4tov4
-}
-
+# membuka localhost web ketika ngoding (localhost/$folderName)
 function web {
 $folderName = Split-Path -Leaf (Get-Location)
     $filePath = "C:\xampp\htdocs\$folderName"
@@ -228,92 +194,84 @@ $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
     & $chromePath $url
 }
 
+# membuka localhost
 function local {
     $url = "http://localhost/phpmyadmin/"
     $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
     & $chromePath $url
 }
 
+# menjalankan xampp
 function xampprun {
     Set-Location 'C:\xampp'
     Start-Process 'apache_start.bat' -WindowStyle Minimized
     Start-Process 'mysql_start.bat' -WindowStyle Minimized
 }
 
+# menghentikan xampp
 function xamppstop {
     Set-Location 'C:\xampp'
     taskkill /f /im httpd.exe
     & '.\mysql\bin\mysqladmin.exe' -u root shutdown
 }
 
+# menjalankan mysql
 function mysql {
     & 'C:\xampp\mysql\bin\mysql.exe' -u root -p
 }
 
-function j {
-param(
-[string]$DirectoryName
-)
-    Set-Location 'C:\'
-    Invoke-Expression "z $DirectoryName"
-}
-
+# menghentikan linux
 function linuxstop {
 wsl.exe --terminate ubuntu-20.04
 }
 
+# mengecek status linux
 function linuxstat {
 wsl --list -v
 }
 
-function cirun {
-php spark serve
-}
 
-function cp {
-$currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-    $fileName = Read-Host "Enter the file name to copy"
-    $sourceFilePath = Join-Path $currentDir $fileName
-    if (-not (Test-Path $sourceFilePath)) {
-        Write-Host "Error: $fileName not found in $currentDir" -ForegroundColor Red
-        return
+
+#    ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
+#   ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║
+#   ██║     ██║   ██║███████╗   ██║   ██║   ██║██╔████╔██║
+#   ██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║
+#   ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
+#    ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+
+# menghapus file-file sementara
+function remove {
+    try {
+        Write-Host "Menghapus file-file sementara temp..." -NoNewLine -ForegroundColor Yellow
+        Get-ChildItem -Path "C:\Windows\Temp" -Filter *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+        Write-Host "Selesai." -ForegroundColor Green
+
+        $userTempPath = $env:TEMP
+        Write-Host "Menghapus file-file sementara dari $userTempPath..." -NoNewLine -ForegroundColor Yellow
+        Get-ChildItem -Path $userTempPath -Filter *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+        Write-Host "Selesai." -ForegroundColor Green
+
+        Write-Host "Menghapus file-file Prefetch dari Prefetch..." -NoNewLine -ForegroundColor Yellow
+        Get-ChildItem -Path "C:\Windows\Prefetch" -Filter *.* | Remove-Item -Force -ErrorAction SilentlyContinue
+        Write-Host "Selesai." -ForegroundColor Green
+
+        Write-Host "Mengosongkan Recycle Bin..." -NoNewLine -ForegroundColor Yellow
+        Clear-RecycleBin -Force -Confirm:$false -ErrorAction SilentlyContinue
+        Write-Host "Selesai." -ForegroundColor Green
+
+        Write-Host "Menjalankan Disk Cleanup..." -NoNewLine -ForegroundColor Yellow
+        Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/d C: /VERYLOWDISK" -NoNewWindow -Wait
+        Write-Host "Selesai." -ForegroundColor Green
+        
+        Write-Host "Semua file-file yang ditargetkan telah dihapus." -ForegroundColor Cyan
     }
-    $destFileName = Read-Host "Enter the destination file name"
-    $destFilePath = Join-Path $currentDir $destFileName
-    Copy-Item $sourceFilePath $destFilePath
-    if (Test-Path $destFilePath) {
-        Write-Host "$fileName copied to $destFilePath" -ForegroundColor Green
-    } else {
-        Write-Host "Error: $fileName copy to $destFilePath failed" -ForegroundColor Red
+    catch {
+        Write-Host "Terjadi kesalahan saat menghapus file: $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
-function mv { # Get current PowerShell directory
-$currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-    $fileName = Read-Host "Enter the file name to move"
-    $sourceFilePath = Join-Path $currentDir $fileName
-    if (-not (Test-Path $sourceFilePath)) {
-        Write-Host "Error: $fileName not found in $currentDir" -ForegroundColor Red
-        return
-    }
-    $destFileName = Read-Host "Enter the destination file name"
-    $destFilePath = Join-Path $currentDir $destFileName
-    Move-Item $sourceFilePath $destFilePath
-    Write-Host "$fileName moved to $destFilePath"
-}
-
-function gr {
-$url = "https://github.com/rezapace?tab=repositories"
-$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-& $chromePath $url
-}
-
-function hp {
-cd C:\scrcpy-win64-v2.0
-.\scrcpy -m720 -b30m
-}
-
-$script:OpenAI_Key = "isi api nya"
+# api chatgpt
+$script:OpenAI_Key = "isi dengan api key chatgpt"
 function ask
 {
 param(
@@ -360,45 +318,123 @@ $url = "https://api.openai.com/v1/completions"
     }
 }
 
-function remove {
-    try {
-        Write-Host "Menghapus file-file sementara temp..." -NoNewLine -ForegroundColor Yellow
-        Get-ChildItem -Path "C:\Windows\Temp" -Filter *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-        Write-Host "Selesai." -ForegroundColor Green
-
-        $userTempPath = $env:TEMP
-        Write-Host "Menghapus file-file sementara dari $userTempPath..." -NoNewLine -ForegroundColor Yellow
-        Get-ChildItem -Path $userTempPath -Filter *.* -Recurse | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
-        Write-Host "Selesai." -ForegroundColor Green
-
-        Write-Host "Menghapus file-file Prefetch dari Prefetch..." -NoNewLine -ForegroundColor Yellow
-        Get-ChildItem -Path "C:\Windows\Prefetch" -Filter *.* | Remove-Item -Force -ErrorAction SilentlyContinue
-        Write-Host "Selesai." -ForegroundColor Green
-
-        Write-Host "Mengosongkan Recycle Bin..." -NoNewLine -ForegroundColor Yellow
-        Clear-RecycleBin -Force -Confirm:$false -ErrorAction SilentlyContinue
-        Write-Host "Selesai." -ForegroundColor Green
-
-        Write-Host "Menjalankan Disk Cleanup..." -NoNewLine -ForegroundColor Yellow
-        Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/d C: /VERYLOWDISK" -NoNewWindow -Wait
-        Write-Host "Selesai." -ForegroundColor Green
-        
-        Write-Host "Semua file-file yang ditargetkan telah dihapus." -ForegroundColor Cyan
-    }
-    catch {
-        Write-Host "Terjadi kesalahan saat menghapus file: $($_.Exception.Message)" -ForegroundColor Red
-    }
+# membuka github rezapace
+function gr {
+$url = "https://github.com/rezapace?tab=repositories"
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+& $chromePath $url
 }
 
+# menampilkan layar hp
+function hp {
+cd $HOME\Documents\GitHub
+.\scrcpy -m720 -b30m
+}
 
+# mengubah ke asci
 
+# function touch($file) {
+# "" | Out-File $file -Encoding ASCII
+# }
 
-#    ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
-#   ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║
-#   ██║     ██║   ██║███████╗   ██║   ██║   ██║██╔████╔██║
-#   ██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║
-#   ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
-#    ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+# menghubungkan port
+
+# function konek {
+# param(
+# [Parameter(Mandatory=$true)]
+# [string]$ip,
+#         [int]$listenport = 8000,
+# [int]$connectport = 8000
+#     )
+#     $listenaddress = $ip.Trim()
+#     $connectaddress = $($(wsl hostname -I).Trim())
+# $cmd = "netsh interface portproxy add v4tov4 listenport=$listenport listenaddress=$listenaddress connectport=$connectport connectaddress=$connectaddress"
+# Invoke-Expression $cmd
+# }
+
+# menghentikan port
+
+# function stop {
+# netsh interface portproxy reset
+# }
+
+# mengecek port
+
+# function cek {
+# netsh interface portproxy show v4tov4
+# }
+
+# menjalankan server laravel
+
+# function cirun {
+# php spark serve
+# }
+
+# mengcopy file
+
+# function cp {
+# $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+#     $fileName = Read-Host "Enter the file name to copy"
+#     $sourceFilePath = Join-Path $currentDir $fileName
+#     if (-not (Test-Path $sourceFilePath)) {
+#         Write-Host "Error: $fileName not found in $currentDir" -ForegroundColor Red
+#         return
+#     }
+#     $destFileName = Read-Host "Enter the destination file name"
+#     $destFilePath = Join-Path $currentDir $destFileName
+#     Copy-Item $sourceFilePath $destFilePath
+#     if (Test-Path $destFilePath) {
+#         Write-Host "$fileName copied to $destFilePath" -ForegroundColor Green
+#     } else {
+#         Write-Host "Error: $fileName copy to $destFilePath failed" -ForegroundColor Red
+#     }
+# }
+
+# memindahkan file
+
+# function mv { # Get current PowerShell directory
+# $currentDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+#     $fileName = Read-Host "Enter the file name to move"
+#     $sourceFilePath = Join-Path $currentDir $fileName
+#     if (-not (Test-Path $sourceFilePath)) {
+#         Write-Host "Error: $fileName not found in $currentDir" -ForegroundColor Red
+#         return
+#     }
+#     $destFileName = Read-Host "Enter the destination file name"
+#     $destFilePath = Join-Path $currentDir $destFileName
+#     Move-Item $sourceFilePath $destFilePath
+#     Write-Host "$fileName moved to $destFilePath"
+# }
+
+# mengedit profile
+
+# function Edit-Profile {
+# if ($host.Name -match "ise") {
+#         $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
+# } else {
+# notepad $profile.CurrentUserAllHosts
+# }}
+
+# unzip file
+
+# function unzip ($file) {
+#     Write-Output("Extracting", $file, "to", $pwd)
+#     $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
+#     Expand-Archive -Path $fullFile -DestinationPath $pwd
+# }
+
+# zip file
+
+# function zip {
+#     param(
+#         [Parameter(Mandatory=$true)]
+# [string]$name
+#     )
+#     $path = (Get-Location).Path
+#     Compress-Archive -Path "$path\*" -DestinationPath "$path\..\$name.zip"
+# }
+
+# menggabungkan pdf
 
 # function gabung {
 #     $folder = Get-Location
@@ -407,6 +443,7 @@ function remove {
 #     & "C:\Program Files\gs\gs10.00.0\bin\gswin64c.exe" -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dQUIET -sOutputFile="$output" $pdfs
 # }
 
+# convert pdf
 
 # function opdf {
 #     [CmdletBinding()]
@@ -433,9 +470,9 @@ function remove {
 #     }
 #     else {
 #         return $false
-#     }
+#     }}
 
-# }
+# convert docx to pdf
 
 # function p2w { # Load Aspose.PDF DLL
 # Add-Type -Path "C:\Program Files (x86)\Aspose\Aspose.PDF for .NET\Bin\net4.0\Aspose.PDF.dll"
@@ -449,6 +486,8 @@ function remove {
 #     Write-Host "PDF file converted to DOCX. Output file: $outputFile"
 # }
 
+# menjalankan peco
+
 # function Invoke-PecoHistory {
 # $command = Get-History | peco | select -expandproperty CommandLine
 # if ($command) {
@@ -457,9 +496,10 @@ function remove {
 # }
 # Set-PSReadLineKeyHandler -Key Ctrl+f -ScriptBlock ${function:Invoke-PecoHistory}
 
+# lokasi profile theme
+oh-my-posh init pwsh --config $HOME\Documents\GitHub\powershell-profile\rezapace.theme.omp.json | Invoke-Expression
 
-oh-my-posh init pwsh --config 'C:/Users/R/Documents/GitHub/powershell-profile/rezapace.theme.omp.json' | Invoke-Expression
-
+# menjalankan chocolatey
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
     Import-Module "$ChocolateyProfile"
