@@ -69,10 +69,10 @@ $EDITOR='sublime_text'
 Set-Alias -Name vim -Value $EDITOR
 
 # psreadline & fzf extension tambahan
-Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionSource History # install install-Module PSReadLine -Force
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r' # scoop install fzf (install scoop dulu)
 Set-PsFzfOption -TabExpansion
 
 
@@ -330,6 +330,22 @@ function hp {
 cd $HOME\Documents\GitHub
 .\scrcpy -m720 -b30m
 }
+
+# langsung buka vscode di directory (jangan lupa install Install-Module -Name z)
+
+# function vs {
+#     param(
+#         [string]$argument
+#     )
+#     j $argument
+#     v
+# }
+
+# connect server ssh
+
+# function serv {
+#     ssh -i C:/reza/priv.pem root@ip
+# }
 
 # mengubah ke asci
 
