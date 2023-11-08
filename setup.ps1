@@ -1,3 +1,18 @@
+# Membuat direktori jika tidak ada
+$githubDirectory = Join-Path $env:userprofile "Documents\Github"
+if (!(Test-Path -Path $githubDirectory -PathType Container)) {
+    New-Item -Path $githubDirectory -ItemType Directory | Out-Null
+}
+
+# Navigasi ke direktori Github
+Set-Location -Path $githubDirectory
+
+# Clone repositori dari GitHub
+git clone "https://github.com/rezapace/powershell-profile"
+
+# Navigasi kembali ke direktori sebelumnya
+Set-Location -Path $PWD.Path
+
 # Periksa apakah file profil pengguna ada, jika tidak, buat profil baru
 if (!(Test-Path -Path $PROFILE -PathType Leaf)) {
     try {
@@ -64,5 +79,8 @@ Install-Module -Name posh-git -Scope CurrentUser -Force
 Install-Module -Name PowerShellGet -Scope CurrentUser -Force
 Install-Module -Name z -Scope CurrentUser -Force
 Install-Module -Name PSReadLine -Scope CurrentUser -Force
+
+scoop install fzf
+Install-Module -Name PSFzf -Scope CurrentUser -Force
 choco install fzf -y
 choco install gsudo -y
