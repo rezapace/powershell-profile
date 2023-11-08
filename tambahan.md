@@ -16,3 +16,7 @@ git --version
 
 jangan lupa kalo udah install di tutup trus buka lg
 
+Set-ExecutionPolicy RemoteSigned
+
+Set-ExecutionPolicy Restricted
+

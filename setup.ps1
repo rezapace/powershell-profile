@@ -79,8 +79,6 @@ Install-Module -Name posh-git -Scope CurrentUser -Force
 Install-Module -Name PowerShellGet -Scope CurrentUser -Force
 Install-Module -Name z -Scope CurrentUser -Force
 Install-Module -Name PSReadLine -Scope CurrentUser -Force
-
-scoop install fzf
-Install-Module -Name PSFzf -Scope CurrentUser -Force
 choco install fzf -y
+Install-Module -Name PSFzf -Scope CurrentUser -Force
 choco install gsudo -y
