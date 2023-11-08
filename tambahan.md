@@ -20,3 +20,5 @@ Set-ExecutionPolicy RemoteSigned
 
 Set-ExecutionPolicy Restricted
 
+kalo error install sendiri file 
+CascadiaMono.ttf
