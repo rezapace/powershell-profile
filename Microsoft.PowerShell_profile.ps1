@@ -340,6 +340,25 @@ cd $HOME\Documents\GitHub
 .\scrcpy -m720 -b30m
 }
 
+# melakukan posting media sosial
+function posting {
+    $urls = @(
+        "https://github.com/rezapace?tab=repositories",
+        "https://www.linkedin.com/feed/",
+        "https://www.instagram.com/rezarh.go/",
+        "https://www.facebook.com/",
+        "https://www.threads.net/@rezarh.go",
+        "https://twitter.com/home"
+    )
+    
+    $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+    foreach ($url in $urls) {
+        & $chromePath $url
+    }
+}
+
+
 # langsung buka vscode di directory (jangan lupa install Install-Module -Name z)
 
 # function vs {
