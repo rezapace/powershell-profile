@@ -40,3 +40,12 @@ Write-Host "ask = ask($question) mengajukan pertanyaan" -ForegroundColor Yellow
 Write-Host "c = clear" -ForegroundColor Yellow
 Write-Host "ctrl+r = mencari history" -ForegroundColor Yellow
 Write-Host "ctrl+f = menampilkna direktory folder" -ForegroundColor Yellow
+
+
+jika error tidak berjalan 
+Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy Restricted
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+pastikan sebelum menjalankan winget nya bisa 
