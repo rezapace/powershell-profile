@@ -51,5 +51,8 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ```
 
+# aplikasi tambahan 
 
-test123
+```
+irm "https://github.com/rezapace/powershell-profile/raw/main/aplikasi.ps1" | iex
+```
