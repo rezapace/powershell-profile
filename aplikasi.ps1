@@ -9,9 +9,11 @@ if ($wingetVersion -eq $null) {
 }
 
 # Jika Winget sudah terinstall, lanjutkan dengan instalasi aplikasi lainnya
-winget install -e --id Google.Chrome
-winget install -e --id 7zip.7zip
-winget install -e --id GitHub.GitHubDesktop
-winget install -e --id Microsoft.PowerToys
-winget install -e --id OliverSchwendener.ueli
-winget install -e --id Microsoft.VisualStudioCode
+winget install -e --id Google.Chrome #chrome
+winget install -e --id 7zip.7zip #7zip
+winget install -e --id GitHub.GitHubDesktop #github
+winget install -e --id Microsoft.PowerToys #powertoys
+winget install -e --id OliverSchwendener.ueli #ueli
+winget install -e --id Microsoft.VisualStudioCode #vscode
+winget install -e --id VideoLAN.VLC #vlc
+winget install -e --id 9P1741LKHQS9 #fancy wm
