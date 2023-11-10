@@ -248,6 +248,13 @@ wsl --list -v
 #   ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
 #    ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
 
+# generate new repo
+function gn {
+$url = "https://github.com/new"
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+& $chromePath $url
+}
+
 # menghapus file-file sementara
 function remove {
     try {
