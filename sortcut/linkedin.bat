@@ -1,2 +1,2 @@
 @echo off
-start /min "" "C:\Program Files\Google\Chrome\Application\chrome.exe" "https://www.linkedin.com/in/reza-hidayat-6576b0271/"
+start "" "C:\Program Files\Google\Chrome\Application\chrome.exe" --new-window --window-size=800,1200 "https://www.linkedin.com/in/rezahidayatrh/"
