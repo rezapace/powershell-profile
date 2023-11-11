@@ -82,8 +82,3 @@ Install-Module -Name PSReadLine -Scope CurrentUser -Force
 choco install fzf -y
 Install-Module -Name PSFzf -Scope CurrentUser -Force
 choco install gsudo -y
-
-# Set execution policy
-Set-ExecutionPolicy RemoteSigned
-Set-ExecutionPolicy Restricted
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
