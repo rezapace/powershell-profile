@@ -106,6 +106,11 @@ function v {code .}
 function rprofile {& $profile}
 function profile {code $HOME\Documents\\WindowsPowerShell}
 
+# balik dengan cepat
+function s {
+    cd ..
+}
+
 # list directory
 function dirs {
 if ($args.Count -gt 0) {
