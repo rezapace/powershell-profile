@@ -1,3 +1,9 @@
+# Cek apakah Git terinstal, jika tidak, install Git
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    Write-Host "Git is not installed. Installing Git..."
+    winget install -e --id Git.Git
+}
+
 # Membuat direktori jika tidak ada
 $githubDirectory = Join-Path $env:userprofile "Documents\Github"
 if (!(Test-Path -Path $githubDirectory -PathType Container)) {
@@ -47,6 +53,7 @@ else {
 
 # Instalasi Oh My Posh menggunakan Windows Package Manager (winget)
 winget install -e --accept-source-agreements --accept-package-agreements JanDeDobbeleer.OhMyPosh
+
 
 # Instalasi font jika tidak ada
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
