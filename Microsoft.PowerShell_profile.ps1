@@ -141,6 +141,26 @@ function gup {
     git push
 }
 
+# langsung update file
+function gupp {
+    param(
+        [string]$argument
+    )
+    j $argument
+
+    # Eksekusi perintah git add .
+    git add .
+
+    # Eksekusi perintah git commit -m "$args"
+    git commit -m "$args"
+
+    # Eksekusi perintah git push
+    git push
+
+    # Tampilkan status git setelah push (opsional)
+    git status
+}
+
 # mengetahui ip publik
 function Get-PubIP {
 (Invoke-WebRequest http://ifconfig.me/ip ).Content
