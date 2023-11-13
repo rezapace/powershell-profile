@@ -303,7 +303,7 @@ function remove {
 }
 
 # api chatgpt
-$script:OpenAI_Key = "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"
+$script:OpenAI_Key = "isi api key nya"
 function ask
 {
 param(
