@@ -65,7 +65,7 @@
   "commandlineOptions": {
     "isEnabled": false,
     "prefix": ">",
-    "shell": "cmd"
+    "shell": "Powershell"
   },
   "controlPanelOptions": {
     "isEnabled": false
@@ -200,6 +200,19 @@
         "priority": 5,
         "url": "https://www.youtube.com/results?search_query={{query}}",
         "suggestionUrl": "https://www.google.com/complete/search?ds=yt&output=firefox&q={{query}}"
+      },
+      {
+        "encodeSearchTerm": true,
+        "icon": {
+          "parameter": "https://github.com/favicon.ico",
+          "type": "URL"
+        },
+        "isFallback": false,
+        "name": "git ",
+        "prefix": "git ",
+        "priority": 0,
+        "url": "https://github.com/rezapace?tab=repositories&q={{query}}&type=&language=&sort=",
+        "suggestionUrl": "https://www.google.com/complete/search?ds=github.com/rezapace/&output=firefox&q=rezapace/{{query}}"
       }
     ]
   },
