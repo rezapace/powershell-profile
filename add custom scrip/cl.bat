@@ -21,10 +21,9 @@ taskkill /F /IM Notion.exe /T > nul
 taskkill /F /IM vlc.exe /T > nul
 taskkill /F /IM xampp-control.exe /T > nul
 taskkill /F /IM vmware-unity-helper.exe /T > nul
-taskkill /F /IM vmware-tray.exe /T > nul
 taskkill /F /IM vmware.exe /T > nul
-taskkill /F /IM vmware-usbarbitrator64.exe /T > nul
-taskkill /F /IM vmnat.exe /T > nul
 taskkill /F /IM cmd.exe /T > nul
 taskkill /F /IM SearchApp.exe /T > nul
-taskkill /F /IM vmware-usbarbitrator64.ex/T > nul
+taskkill /F /IM Postman.exe /T > nul
+taskkill /F /IM obs64.exe /T > nul
+taskkill /F /IM GitHubDesktop.exe /T > nul
