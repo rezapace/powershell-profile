@@ -1,49 +1,54 @@
-home = lokasi ke disck c
-local = membuka localhost/phpmyadmin
-profile = menambahkan setingan menggunakan vscode
-zip = menzip file
-unzip = mengekstrak file
-g = github
-desktop = desktop
-htdoc = htdoc xampp
-src = src golang
-linux = linux file
-web = membuka localhost
-konek = membuka port
-cek = cek port yang terbuka
-stop = matikan port
-find-file = find-file($name) menemukan file
-e = membuka explorer
-v = membuka vscode
-grep = grep($regex, $dir) mencari kata
-gcom = menambahkan dan meng-commit semua perubahan
-lazyg = meng-push perubahan yang sudah dicommit ke repositori Git
-lazy = menambahkan dan meng-commit semua perubahan, kemudian meng-push perubahan yang sudah dicommit ke repositori Git
-xampprun = menjalankan xampp
-xamppstop = menghentikan xampp
-lupa = menampilkan perintah
-mysql = membuka mysql
-gabung = menggabungkan file pdf
-opdf = mengoptimasi file pdf
-p2w = mengubah file pdf ke word direktory dan nama pdf
-j = j($name) menuju folder
-linuxstop = menghentikan linux
-linuxstat = mengecek status linux
-cirun = menjalankan codeigniter
-cp = cp($name) menyalin file
-mv = mv($name) memindahkan file
-gr = membuka github reza
-ctrl+h = mencari history
-ask = ask($question) mengajukan pertanyaan
-c = clear
-ctrl+r = mencari history
-ctrl+f = menampilkan direktori folder
+# Command Shortcuts
 
+Berikut adalah daftar perintah dan singkatan yang dapat memudahkan penggunaan sehari-hari di PowerShell.
 
-jika error tidak berjalan 
-Set-ExecutionPolicy RemoteSigned
-Set-ExecutionPolicy Restricted
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+## Navigasi dan Lokasi
 
+- **home**: Navigasi ke disk C:
+- **local**: Membuka localhost/phpmyadmin
+- **profile**: Membuka setingan menggunakan Visual Studio Code
+- **zip**: Men-zip file
+- **unzip**: Mengekstrak file
+- **g**: Membuka GitHub
+- **desktop**: Beralih ke desktop
+- **htdoc**: Beralih ke direktori htdocs di XAMPP
+- **src**: Beralih ke direktori src untuk Golang
+- **linux**: Beralih ke direktori file Linux
+- **web**: Membuka localhost
+- **konek**: Membuka port
+- **cek**: Mengecek port yang terbuka
+- **stop**: Menonaktifkan port
+- **find-file**: Mencari file berdasarkan nama
+- **e**: Membuka Explorer
+- **v**: Membuka Visual Studio Code
+- **grep**: Mencari kata dalam file menggunakan regex dan direktori tertentu
+- **gcom**: Git: Menambahkan dan meng-commit semua perubahan
+- **lazyg**: Git: Melakukan push perubahan yang sudah di-commit ke repositori Git
+- **lazy**: Git: Menambahkan, meng-commit, dan melakukan push perubahan ke repositori Git
+- **xampprun**: Menjalankan XAMPP
+- **xamppstop**: Menghentikan XAMPP
+- **lupa**: Menampilkan perintah yang sering lupa
+- **mysql**: Membuka MySQL
+- **gabung**: Menggabungkan file PDF
+- **opdf**: Mengoptimalkan file PDF
+- **p2w**: Mengubah file PDF ke Word dalam direktori dan nama file PDF yang ditentukan
+- **j**: Beralih ke folder tertentu
+- **linuxstop**: Menghentikan Linux
+- **linuxstat**: Mengecek status Linux
+- **cirun**: Menjalankan CodeIgniter
+- **cp**: Menyalin file
+- **mv**: Memindahkan file
+- **gr**: Membuka GitHub repository pribadi
+- **ctrl+h**: Mencari history
+- **ask**: Memunculkan pertanyaan kepada pengguna
+- **c**: Membersihkan layar
+- **ctrl+r**: Mencari history
+- **ctrl+f**: Menampilkan direktori folder
 
-pastikan sebelum menjalankan winget nya bisa 
+## Catatan
+
+- Jika mengalami kesalahan, pastikan untuk menjalankan perintah:
+  ```powershell
+  Set-ExecutionPolicy RemoteSigned
+  Set-ExecutionPolicy Restricted
+  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser

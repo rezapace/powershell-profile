@@ -16,6 +16,6 @@ https://www.google.com/complete/search?ds=github.com/rezapace/&output=firefox&q=
 ```
 
 screenshoot
-![Logo](https://github.com/rezapace/cuaca_go/blob/main/runing%20echo.jpg?raw=true)
+![Logo](https://github.com/rezapace/powershell-profile/blob/main/ueli%20Profile/photo_2023-11-13_09-25-19.jpg?raw=true)
 
-![Logo](https://github.com/rezapace/cuaca_go/blob/main/postman%20output.jpg?raw=true)
+![Logo](https://github.com/rezapace/powershell-profile/blob/main/ueli%20Profile/photo_2023-11-13_09-25-33.jpg?raw=true)

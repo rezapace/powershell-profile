@@ -1,10 +1,3 @@
-#  ██╗    ██╗███████╗██████╗ ██╗  ██╗██╗   ██╗███╗   ███╗ █████╗ ██╗     
-#  ██║    ██║██╔════╝██╔══██╗██║ ██╔╝██║   ██║████╗ ████║██╔══██╗██║     
-#  ██║ █╗ ██║█████╗  ██████╔╝█████╔╝ ██║   ██║██╔████╔██║███████║██║     
-#  ██║███╗██║██╔══╝  ██╔══██╗██╔═██╗ ██║   ██║██║╚██╔╝██║██╔══██║██║     
-#  ╚███╔███╔╝███████╗██████╔╝██║  ██╗╚██████╔╝██║ ╚═╝ ██║██║  ██║███████╗
-#   ╚══╝╚══╝ ╚══════╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝
-
 Import-Module -Name Terminal-Icons
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -69,20 +62,11 @@ $EDITOR='sublime_text'
 Set-Alias -Name vim -Value $EDITOR
 
 # psreadline & fzf extension tambahan
-Set-PSReadLineOption -PredictionSource History # install install-Module PSReadLine -Force
+Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -EditMode Windows
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r' # scoop install fzf (install scoop dulu)
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 Set-PsFzfOption -TabExpansion
-
-function setupps {
-    Install-Module -Name Terminal-Icons -Repository PSGallery -Force
-    Install-Module -Name posh-git -Scope CurrentUser -Force
-    Install-Module -Name PowerShellGet -Scope CurrentUser -Force
-    Install-Module -Name z -Scope CurrentUser -Force
-    install-Module -Name PSReadLine CurrentUser -Force
-    scoop install fzf
-}
 
 
 #  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗     ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
@@ -106,9 +90,18 @@ function v {code .}
 function rprofile {& $profile}
 function profile {code $HOME\Documents\\WindowsPowerShell}
 
-# balik dengan cepat
-function s {
-    cd ..
+# connect server ssh
+function serv {
+    ssh -i C:/Users/R/priv.pem root@47.236.4.238
+}
+
+# langsung buka vscode di directory
+function vs {
+    param(
+        [string]$argument
+    )
+    j $argument
+    v
 }
 
 # list directory
@@ -141,7 +134,6 @@ function gup {
     git push
 }
 
-# langsung update file
 function gupp {
     param(
         [string]$argument
@@ -160,6 +152,7 @@ function gupp {
     # Tampilkan status git setelah push (opsional)
     git status
 }
+
 
 # mengetahui ip publik
 function Get-PubIP {
@@ -264,6 +257,11 @@ function linuxstat {
 wsl --list -v
 }
 
+function s {
+    cd ..
+}
+
+
 
 
 #    ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗
@@ -272,13 +270,6 @@ wsl --list -v
 #   ██║     ██║   ██║╚════██║   ██║   ██║   ██║██║╚██╔╝██║
 #   ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
 #    ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
-
-# generate new repo
-function gn {
-$url = "https://github.com/new"
-$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-& $chromePath $url
-}
 
 # menghapus file-file sementara
 function remove {
@@ -312,7 +303,7 @@ function remove {
 }
 
 # api chatgpt
-$script:OpenAI_Key = "isi dengan api key chatgpt"
+$script:OpenAI_Key = "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"
 function ask
 {
 param(
@@ -366,6 +357,13 @@ $chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
 & $chromePath $url
 }
 
+# generate new repo
+function gn {
+$url = "https://github.com/new"
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+& $chromePath $url
+}
+
 # menampilkan layar hp
 function hp {
 cd $HOME\Documents\GitHub
@@ -390,22 +388,24 @@ function posting {
     }
 }
 
+# membuat file baru
+function Nf {
+    param (
+        [string]$FileName
+    )
 
-# langsung buka vscode di directory (jangan lupa install Install-Module -Name z)
+    # Mendapatkan jalur ke direktori saat ini
+    $CurrentDirectory = Get-Location
 
-# function vs {
-#     param(
-#         [string]$argument
-#     )
-#     j $argument
-#     v
-# }
+    # Menggabungkan nama file dengan jalur direktori saat ini
+    $FilePath = Join-Path $CurrentDirectory $FileName
 
-# connect server ssh
+    # Membuat file baru
+    New-Item -ItemType File -Path $FilePath -Force
 
-# function serv {
-#     ssh -i C:/reza/priv.pem root@ip
-# }
+    # Membuka file dengan Notepad
+    Start-Process "notepad.exe" -ArgumentList $FilePath
+}
 
 # mengubah ke asci
 
