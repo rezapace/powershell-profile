@@ -1,8 +1,8 @@
-# 🎨 PowerShell Profile 
+# 👨‍💻 PowerShell Profile 
 
 Terminal Keren.
 
-## ⚡ Satu Baris Langsung Jadi
+## 👾 Satu Baris Langsung Jadi
 
 Langsung Saja Eksekusi dengan perintah:
 
@@ -10,7 +10,7 @@ Langsung Saja Eksekusi dengan perintah:
 irm "https://github.com/rezapace/powershell-profile/raw/main/setup.ps1" | iex
 ```
 
-# aplikasi tambahan 
+# 👾 aplikasi tambahan 
 
 ```
 irm "https://github.com/rezapace/powershell-profile/raw/main/aplikasi.ps1" | iex
